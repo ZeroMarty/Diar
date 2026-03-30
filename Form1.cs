@@ -15,6 +15,18 @@ namespace Diar
 {
     public partial class Form1 : Form
     {
+        public class udalost
+        {
+            Form1 main;
+            DateTime cas;
+            public udalost (DateTime cas, Form1 main)
+            {
+                this.cas = cas;
+                main.cas = cas;
+                main.udalosti.Add(cas);
+            }
+
+        }
         public Form1()
         {
             InitializeComponent();
@@ -23,6 +35,10 @@ namespace Diar
         public SQLiteConnection conn;
         public SQLiteCommand cmd;
         public string sql;
+        public int id;
+        public DateTime cas;
+        public List<DateTime> udalosti;
+        public string nazev;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -57,7 +73,7 @@ namespace Diar
         private void btn_Upravit_Click(object sender, EventArgs e)
         {
             conn.Open();
-            int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+            id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
 
             cmd = new SQLiteCommand(sql, conn);
             cmd.ExecuteNonQuery();
@@ -72,7 +88,7 @@ namespace Diar
         private void btn_Delete_Click(object sender, EventArgs e)
         {
             conn.Open();
-            int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+            id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
 
             cmd = new SQLiteCommand(sql, conn);
             cmd.ExecuteNonQuery();
@@ -105,6 +121,25 @@ namespace Diar
             reader.Close();
             conn.Close();
             return hledani;
+        }
+
+        private void kontrola()
+        {
+            Application.DoEvents();
+            DateTime cas = DateTime.Now;
+            for (int i = 0; i < udalosti.Count; i++)
+            {
+                if (cas == udalosti[i])
+                {
+                    MessageBox.Show("Upozornění:" + nazev);
+                }
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Application.DoEvents();
+            kontrola();
         }
     }
 }

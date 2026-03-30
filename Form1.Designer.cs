@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btn_Pridej = new System.Windows.Forms.Button();
             this.btn_Upravit = new System.Windows.Forms.Button();
             this.btn_Delete = new System.Windows.Forms.Button();
@@ -39,6 +40,7 @@
             this.Duležitost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Cas = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Upozorneni = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,6 +129,10 @@
             this.Upozorneni.HeaderText = "Upozornění";
             this.Upozorneni.Name = "Upozorneni";
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -158,6 +164,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Duležitost;
         private System.Windows.Forms.DataGridViewTextBoxColumn Cas;
         private System.Windows.Forms.DataGridViewTextBoxColumn Upozorneni;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
