@@ -31,7 +31,7 @@ namespace Diar
                 SQLiteConnection.CreateFile("databaze.sqlite");
                 conn = new SQLiteConnection("Data Source= databaze.sqlite;version=3;");
                 conn.Open();
-                sql = "CREATE TABLE udalosti (id INT PRIMARY KEY, nazev STRING, interval STRING, priorita STRING, datum DATETIME)";
+                sql = "CREATE TABLE udalosti (id INT PRIMARY KEY, nazev varchar, interval varchar, priorita varchar, datum varchar)";
                 cmd = new SQLiteCommand(sql, conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
@@ -40,17 +40,48 @@ namespace Diar
 
         private void btn_Pridej_Click(object sender, EventArgs e)
         {
+            conn.Open();
+            int id = hledaniid();
+            sql =$"";
 
+            cmd = new SQLiteCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+            sql = "SELECT * FROM udalosti ORDER BY id";
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dataGridView1.DataSource = dt;
+            conn.Close();
         }
 
         private void btn_Upravit_Click(object sender, EventArgs e)
         {
+            conn.Open();
+            int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
 
+            cmd = new SQLiteCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+            sql = "SELECT * FROM udalosti ORDER BY id";
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dataGridView1.DataSource = dt;
+            conn.Close();
         }
 
         private void btn_Delete_Click(object sender, EventArgs e)
         {
+            conn.Open();
+            int id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
 
+            cmd = new SQLiteCommand(sql, conn);
+            cmd.ExecuteNonQuery();
+            sql = "SELECT * FROM udalosti ORDER BY id";
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn);
+            DataTable dt = new DataTable();
+            adapter.Fill(dt);
+            dataGridView1.DataSource = dt;
+            conn.Close();
         }
 
         private int hledaniid()
