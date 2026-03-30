@@ -20,19 +20,36 @@ namespace Diar
             Form1 main;
             DateTime cas;
             int operace;
-            public udalost (DateTime cas, Form1 main, int operace)
+            bool upozorneni;
+            string name;
+            public udalost (DateTime cas, Form1 main, int operace, bool upozorneni, string name)
             {
                 this.cas = cas;
                 this.operace = operace;
+                this.upozorneni = upozorneni;
+                this.name = name;
+                main.upozorneni=upozorneni;
                 main.operace = operace;
                 main.cas = cas;
+                main.nazev = name;
                 if(operace == 1)
                 {
-                    main.udalosti[main.id-1] = cas;
+                    main.udalosti.Add(cas);
+                    main.alarm.Add(upozorneni);
+                    main.nazvy.Add(name);
                 }
                 else if(operace == 2)
                 {
+                    main.alarm[main.id - 1] = upozorneni;
+                    main.udalosti[main.id - 1] = cas;
+                    main.nazvy[main.id - 1] = name;
+
+                }
+                else if(operace == 3)
+                {
                     main.udalosti.RemoveAt(main.id-1);
+                    main.alarm.RemoveAt(main.id - 1);
+                    main.nazvy.RemoveAt(main.id - 1);
                 }
             }
 
@@ -50,7 +67,9 @@ namespace Diar
         public DateTime cas;
         public List<DateTime> udalosti;
         public string nazev;
-
+        public List<bool> alarm;
+        public bool upozorneni;
+        public List<string> nazvy;
         private void Form1_Load(object sender, EventArgs e)
         {
             Application.DoEvents();
@@ -81,7 +100,6 @@ namespace Diar
             dataGridView1.DataSource = dt;
             conn.Close();
         }
-
         private void btn_Upravit_Click(object sender, EventArgs e)
         {
             conn.Open();
@@ -141,7 +159,7 @@ namespace Diar
             DateTime cas = DateTime.Now;
             for (int i = 0; i < udalosti.Count; i++)
             {
-                if (cas == udalosti[i])
+                if (cas == udalosti[i] && upozorneni == alarm[i])
                 {
                     MessageBox.Show("Upozornění:" + nazev);
                 }
@@ -152,6 +170,18 @@ namespace Diar
         {
             Application.DoEvents();
             kontrola();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(comboBox1.SelectedIndex == 0)
+            {
+                upozorneni = false;
+            }
+            else if(comboBox1.SelectedIndex == 1)
+            {
+                upozorneni=true;
+            }
         }
     }
 }
