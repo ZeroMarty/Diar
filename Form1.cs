@@ -19,11 +19,21 @@ namespace Diar
         {
             Form1 main;
             DateTime cas;
-            public udalost (DateTime cas, Form1 main)
+            int operace;
+            public udalost (DateTime cas, Form1 main, int operace)
             {
                 this.cas = cas;
+                this.operace = operace;
+                main.operace = operace;
                 main.cas = cas;
-                main.udalosti.Add(cas);
+                if(operace == 1)
+                {
+                    main.udalosti[main.id-1] = cas;
+                }
+                else if(operace == 2)
+                {
+                    main.udalosti.RemoveAt(main.id-1);
+                }
             }
 
         }
@@ -35,6 +45,7 @@ namespace Diar
         public SQLiteConnection conn;
         public SQLiteCommand cmd;
         public string sql;
+        public int operace; //1 přidá/upraví, 2 odebere
         public int id;
         public DateTime cas;
         public List<DateTime> udalosti;
@@ -56,6 +67,7 @@ namespace Diar
 
         private void btn_Pridej_Click(object sender, EventArgs e)
         {
+            operace = 1;
             conn.Open();
             int id = hledaniid();
             sql =$"";
@@ -74,7 +86,7 @@ namespace Diar
         {
             conn.Open();
             id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
-
+            operace = 1;
             cmd = new SQLiteCommand(sql, conn);
             cmd.ExecuteNonQuery();
             sql = "SELECT * FROM udalosti ORDER BY id";
@@ -89,7 +101,7 @@ namespace Diar
         {
             conn.Open();
             id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
-
+            operace = 2;
             cmd = new SQLiteCommand(sql, conn);
             cmd.ExecuteNonQuery();
             sql = "SELECT * FROM udalosti ORDER BY id";
