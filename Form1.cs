@@ -70,6 +70,7 @@ namespace Diar
         public List<bool> alarm;
         public bool upozorneni;
         public List<string> nazvy;
+        public string ctverec;
         private void Form1_Load(object sender, EventArgs e)
         {
             Application.DoEvents();
@@ -77,7 +78,7 @@ namespace Diar
                 SQLiteConnection.CreateFile("databaze.sqlite");
                 conn = new SQLiteConnection("Data Source= databaze.sqlite;version=3;");
                 conn.Open();
-                sql = "CREATE TABLE udalosti (id INT PRIMARY KEY, nazev varchar, interval varchar, priorita varchar, datum varchar)";
+                sql = "CREATE TABLE udalosti (id INT PRIMARY KEY, nazev varchar, interval TimeSpan, dulezitost varchar, datum DateTime, alarm bool)";
                 cmd = new SQLiteCommand(sql, conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
@@ -94,18 +95,51 @@ namespace Diar
             {
                 dialog.ShowDialog();
                 int priorita = dialog.priority;
-                DateTime datum = dialog.datum;
+                cas = dialog.datum;
                 TimeSpan doba = dialog.doba;
-                bool upozorneni = dialog.upozorneni;
-                string udalost = dialog.udalost;
+                upozorneni = dialog.upozorneni;
+                nazev = dialog.udalost;
+                if(priorita == 1)
+                {
+                    ctverec = "\u001b[31m█\u001b[0m"; //pro referenci: https://gist.github.com/dominikwilkowski/60eed2ea722183769d586c76f22098dd
+                }
+                else if(priorita == 2)
+                {
+                    ctverec = "\u001b[33m█\u001b[0m";
+                }
+                else if(priorita == 3)
+                {
+                    ctverec = "\u001b[32m█\u001b[0m";
+                }
                 operace = 1;
+                udalost udal = new udalost (cas, this, operace, upozorneni, nazev);
                 conn.Open();
-                int id = hledaniid();
-                sql = $"";
-
+                id = hledaniid();
+                sql = $"INSERT INTO udalosti(id, nazev, interval, dulezitost, datum, alarm) VALUES({id}, {nazev}, {doba},{ctverec},{cas},{upozorneni} )";
                 cmd = new SQLiteCommand(sql, conn);
                 cmd.ExecuteNonQuery();
+
                 sql = "SELECT * FROM udalosti ORDER BY id";
+                cmd = new SQLiteCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                dataGridView1.DataSource = dt;
+                conn.Close();
+
+            }
+        }
+        private void btn_Upravit_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new Form2())
+            {
+                conn.Open();
+                id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                operace = 2;
+                sql = "SELECT * FROM udalosti ORDER BY id";
+                cmd = new SQLiteCommand(sql, conn);
+                cmd.ExecuteNonQuery();
                 SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -113,34 +147,23 @@ namespace Diar
                 conn.Close();
             }
         }
-        private void btn_Upravit_Click(object sender, EventArgs e)
-        {
-            conn.Open();
-            id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
-            operace = 1;
-            cmd = new SQLiteCommand(sql, conn);
-            cmd.ExecuteNonQuery();
-            sql = "SELECT * FROM udalosti ORDER BY id";
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            dataGridView1.DataSource = dt;
-            conn.Close();
-        }
 
         private void btn_Delete_Click(object sender, EventArgs e)
         {
-            conn.Open();
-            id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
-            operace = 2;
-            cmd = new SQLiteCommand(sql, conn);
-            cmd.ExecuteNonQuery();
-            sql = "SELECT * FROM udalosti ORDER BY id";
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            dataGridView1.DataSource = dt;
-            conn.Close();
+            using (var dialog = new Form2())
+            {
+                conn.Open();
+                id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                operace = 3;
+                sql = "SELECT * FROM udalosti ORDER BY id";
+                cmd = new SQLiteCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                dataGridView1.DataSource = dt;
+                conn.Close();
+            }
         }
 
         private int hledaniid()

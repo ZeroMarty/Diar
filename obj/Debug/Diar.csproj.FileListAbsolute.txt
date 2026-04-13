@@ -1,0 +1,17 @@
+C:\Users\sisovsky.ondrej25\Desktop\Diar\bin\Debug\x86\sqlite3.dll
+C:\Users\sisovsky.ondrej25\Desktop\Diar\bin\Debug\x64\sqlite3.dll
+C:\Users\sisovsky.ondrej25\Desktop\Diar\bin\Debug\Diar.exe.config
+C:\Users\sisovsky.ondrej25\Desktop\Diar\bin\Debug\Diar.exe
+C:\Users\sisovsky.ondrej25\Desktop\Diar\bin\Debug\Diar.pdb
+C:\Users\sisovsky.ondrej25\Desktop\Diar\bin\Debug\System.Data.SQLite.dll
+C:\Users\sisovsky.ondrej25\Desktop\Diar\bin\Debug\System.Data.SQLite.xml
+C:\Users\sisovsky.ondrej25\Desktop\Diar\obj\Debug\Diar.csproj.AssemblyReference.cache
+C:\Users\sisovsky.ondrej25\Desktop\Diar\obj\Debug\Diar.csproj.SuggestedBindingRedirects.cache
+C:\Users\sisovsky.ondrej25\Desktop\Diar\obj\Debug\Diar.Form1.resources
+C:\Users\sisovsky.ondrej25\Desktop\Diar\obj\Debug\Diar.Form2.resources
+C:\Users\sisovsky.ondrej25\Desktop\Diar\obj\Debug\Diar.Properties.Resources.resources
+C:\Users\sisovsky.ondrej25\Desktop\Diar\obj\Debug\Diar.csproj.GenerateResource.cache
+C:\Users\sisovsky.ondrej25\Desktop\Diar\obj\Debug\Diar.csproj.CoreCompileInputs.cache
+C:\Users\sisovsky.ondrej25\Desktop\Diar\obj\Debug\Diar.csproj.CopyComplete
+C:\Users\sisovsky.ondrej25\Desktop\Diar\obj\Debug\Diar.exe
+C:\Users\sisovsky.ondrej25\Desktop\Diar\obj\Debug\Diar.pdb
