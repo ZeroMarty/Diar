@@ -58,18 +58,17 @@ namespace Diar
         {
             InitializeComponent();
         }
-
         public SQLiteConnection conn;
         public SQLiteCommand cmd;
         public string sql;
         public int operace; //1 přidá/upraví, 2 odebere
         public int id;
         public DateTime cas;
-        public List<DateTime> udalosti;
+        public List<DateTime> udalosti = new List<DateTime>();
         public string nazev;
-        public List<bool> alarm;
+        public List<bool> alarm = new List<bool>();
         public bool upozorneni;
-        public List<string> nazvy;
+        public List<string> nazvy = new List<string>();
         public string ctverec;
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -78,7 +77,7 @@ namespace Diar
                 SQLiteConnection.CreateFile("databaze.sqlite");
                 conn = new SQLiteConnection("Data Source= databaze.sqlite;version=3;");
                 conn.Open();
-                sql = "CREATE TABLE udalosti (id INT PRIMARY KEY, nazev varchar, interval TimeSpan, dulezitost varchar, datum DateTime, alarm bool)";
+                sql = "CREATE TABLE udalosti (id INT PRIMARY KEY, nazev varchar, interval varchar, dulezitost varchar, datum varchar, alarm bool)";
                 cmd = new SQLiteCommand(sql, conn);
                 cmd.ExecuteNonQuery();
                 conn.Close();
@@ -113,12 +112,12 @@ namespace Diar
                 }
                 operace = 1;
                 udalost udal = new udalost (cas, this, operace, upozorneni, nazev);
-                conn.Open();
                 id = hledaniid();
+                conn.Open();
                 sql = $"INSERT INTO udalosti(id, nazev, interval, dulezitost, datum, alarm) VALUES({id}, {nazev}, {doba},{ctverec},{cas},{upozorneni} )";
                 cmd = new SQLiteCommand(sql, conn);
                 cmd.ExecuteNonQuery();
-
+                dataGridView1.DataSource = null;
                 sql = "SELECT * FROM udalosti ORDER BY id";
                 cmd = new SQLiteCommand(sql, conn);
                 cmd.ExecuteNonQuery();
@@ -134,9 +133,34 @@ namespace Diar
         {
             using (var dialog = new Form2())
             {
+                dialog.ShowDialog();
+                int priorita = dialog.priority;
+                cas = dialog.datum;
+                TimeSpan doba = dialog.doba;
+                upozorneni = dialog.upozorneni;
+                nazev = dialog.udalost;
+                if (priorita == 1)
+                {
+                    ctverec = "\u001b[31m█\u001b[0m"; //pro referenci: https://gist.github.com/dominikwilkowski/60eed2ea722183769d586c76f22098dd
+                }
+                else if (priorita == 2)
+                {
+                    ctverec = "\u001b[33m█\u001b[0m";
+                }
+                else if (priorita == 3)
+                {
+                    ctverec = "\u001b[32m█\u001b[0m";
+                }
                 conn.Open();
                 id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                sql = $"DELETE FROM udalosti where id = {id}";
+                cmd = new SQLiteCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                sql = $"INSERT INTO udalosti(id, nazev, interval, dulezitost, datum, alarm) VALUES({id}, {nazev}, {doba},{ctverec},{cas},{upozorneni} )";
+                cmd = new SQLiteCommand(sql, conn);
+                cmd.ExecuteNonQuery();
                 operace = 2;
+                dataGridView1.DataSource = null;
                 sql = "SELECT * FROM udalosti ORDER BY id";
                 cmd = new SQLiteCommand(sql, conn);
                 cmd.ExecuteNonQuery();
@@ -152,9 +176,31 @@ namespace Diar
         {
             using (var dialog = new Form2())
             {
+                dialog.ShowDialog();
+                int priorita = dialog.priority;
+                cas = dialog.datum;
+                TimeSpan doba = dialog.doba;
+                upozorneni = dialog.upozorneni;
+                nazev = dialog.udalost;
+                if (priorita == 1)
+                {
+                    ctverec = "\u001b[31m█\u001b[0m"; //pro referenci: https://gist.github.com/dominikwilkowski/60eed2ea722183769d586c76f22098dd
+                }
+                else if (priorita == 2)
+                {
+                    ctverec = "\u001b[33m█\u001b[0m";
+                }
+                else if (priorita == 3)
+                {
+                    ctverec = "\u001b[32m█\u001b[0m";
+                }
                 conn.Open();
                 id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells["Id"].Value);
+                sql = $"DELETE FROM udalosti where id = {id}";
+                cmd = new SQLiteCommand(sql, conn);
+                cmd.ExecuteNonQuery();
                 operace = 3;
+                dataGridView1.DataSource = null;
                 sql = "SELECT * FROM udalosti ORDER BY id";
                 cmd = new SQLiteCommand(sql, conn);
                 cmd.ExecuteNonQuery();

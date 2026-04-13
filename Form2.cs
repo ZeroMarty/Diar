@@ -28,6 +28,8 @@ namespace Diar
         {
             this.dateTimePicker1.CustomFormat = "HH:mm"; //hodiny
             this.dateTimePicker3.CustomFormat = "HH:mm";
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,7 +40,15 @@ namespace Diar
             doba = doba1.Subtract(doba2);
             udalost = textBox1.Text;
             priority = int.Parse(comboBox1.SelectedItem.ToString());
-            upozorneni = (bool)comboBox2.SelectedItem;
+            if(comboBox2.SelectedIndex == 0 )
+            {
+                upozorneni = true;
+            }
+            else if(comboBox2.SelectedIndex == 1 )
+            {
+                upozorneni = false;
+            }
+            this.Close();
         }
     }
 }
