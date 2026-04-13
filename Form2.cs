@@ -37,7 +37,7 @@ namespace Diar
             datum = dateTimePicker2.Value;
             doba1 = dateTimePicker1.Value;
             doba2 = dateTimePicker3.Value;
-            doba = doba1.Subtract(doba2);
+            doba = -(doba1.Subtract(doba2));
             udalost = textBox1.Text;
             priority = int.Parse(comboBox1.SelectedItem.ToString());
             if(comboBox2.SelectedIndex == 0 )
