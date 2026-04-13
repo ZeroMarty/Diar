@@ -73,6 +73,7 @@ namespace Diar
         private void Form1_Load(object sender, EventArgs e)
         {
             Application.DoEvents();
+            dataGridView1.AutoGenerateColumns = false;
             if(!File.Exists("databaze.sqlite")) {
                 SQLiteConnection.CreateFile("databaze.sqlite");
                 conn = new SQLiteConnection("Data Source= databaze.sqlite;version=3;");

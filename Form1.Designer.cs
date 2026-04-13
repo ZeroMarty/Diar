@@ -33,13 +33,13 @@
             this.btn_Upravit = new System.Windows.Forms.Button();
             this.btn_Delete = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Udalost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Doba = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Duležitost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Cas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Upozorneni = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.cislo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.udalosts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.interval = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dulezitost = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.al = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,50 +79,56 @@
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Id,
-            this.Udalost,
-            this.Doba,
-            this.Duležitost,
-            this.Cas,
-            this.Upozorneni});
+            this.cislo,
+            this.udalosts,
+            this.interval,
+            this.dulezitost,
+            this.datum,
+            this.al});
             this.dataGridView1.Location = new System.Drawing.Point(60, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(643, 299);
             this.dataGridView1.TabIndex = 4;
             // 
-            // Id
-            // 
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            // 
-            // Udalost
-            // 
-            this.Udalost.HeaderText = "Událost";
-            this.Udalost.Name = "Udalost";
-            // 
-            // Doba
-            // 
-            this.Doba.HeaderText = "Doba";
-            this.Doba.Name = "Doba";
-            // 
-            // Duležitost
-            // 
-            this.Duležitost.HeaderText = "Důležitost";
-            this.Duležitost.Name = "Duležitost";
-            // 
-            // Cas
-            // 
-            this.Cas.HeaderText = "Čas";
-            this.Cas.Name = "Cas";
-            // 
-            // Upozorneni
-            // 
-            this.Upozorneni.HeaderText = "Upozornění";
-            this.Upozorneni.Name = "Upozorneni";
-            // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // cislo
+            // 
+            this.cislo.DataPropertyName = "id";
+            this.cislo.HeaderText = "Id";
+            this.cislo.Name = "cislo";
+            // 
+            // udalosts
+            // 
+            this.udalosts.DataPropertyName = "nazev";
+            this.udalosts.HeaderText = "Událost";
+            this.udalosts.Name = "udalosts";
+            // 
+            // interval
+            // 
+            this.interval.DataPropertyName = "interval";
+            this.interval.HeaderText = "Doba";
+            this.interval.Name = "interval";
+            // 
+            // dulezitost
+            // 
+            this.dulezitost.DataPropertyName = "dulezitost";
+            this.dulezitost.HeaderText = "Důležitost";
+            this.dulezitost.Name = "dulezitost";
+            // 
+            // datum
+            // 
+            this.datum.DataPropertyName = "datum";
+            this.datum.HeaderText = "Datum";
+            this.datum.Name = "datum";
+            // 
+            // al
+            // 
+            this.al.DataPropertyName = "alarm";
+            this.al.HeaderText = "Alarm";
+            this.al.Name = "al";
             // 
             // Form1
             // 
@@ -147,13 +153,13 @@
         private System.Windows.Forms.Button btn_Upravit;
         private System.Windows.Forms.Button btn_Delete;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Udalost;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Doba;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Duležitost;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Cas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Upozorneni;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cislo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn udalosts;
+        private System.Windows.Forms.DataGridViewTextBoxColumn interval;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dulezitost;
+        private System.Windows.Forms.DataGridViewTextBoxColumn datum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn al;
     }
 }
 
