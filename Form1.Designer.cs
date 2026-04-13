@@ -32,7 +32,6 @@
             this.btn_Pridej = new System.Windows.Forms.Button();
             this.btn_Upravit = new System.Windows.Forms.Button();
             this.btn_Delete = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Udalost = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,7 +49,7 @@
             this.btn_Pridej.Name = "btn_Pridej";
             this.btn_Pridej.Size = new System.Drawing.Size(101, 42);
             this.btn_Pridej.TabIndex = 0;
-            this.btn_Pridej.Text = "Přidat";
+            this.btn_Pridej.Text = "Nová událost";
             this.btn_Pridej.UseVisualStyleBackColor = true;
             this.btn_Pridej.Click += new System.EventHandler(this.btn_Pridej_Click);
             // 
@@ -74,18 +73,6 @@
             this.btn_Delete.Text = "Smazat";
             this.btn_Delete.UseVisualStyleBackColor = true;
             this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Ano",
-            "Ne"});
-            this.comboBox1.Location = new System.Drawing.Point(582, 317);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 3;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // dataGridView1
             // 
@@ -143,7 +130,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.btn_Delete);
             this.Controls.Add(this.btn_Upravit);
             this.Controls.Add(this.btn_Pridej);
@@ -160,7 +146,6 @@
         private System.Windows.Forms.Button btn_Pridej;
         private System.Windows.Forms.Button btn_Upravit;
         private System.Windows.Forms.Button btn_Delete;
-        private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Udalost;

@@ -82,23 +82,36 @@ namespace Diar
                 cmd.ExecuteNonQuery();
                 conn.Close();
             }
+            else
+            {
+                conn = new SQLiteConnection("Data Source= databaze.sqlite;version=3;");
+            }
         }
 
         private void btn_Pridej_Click(object sender, EventArgs e)
         {
-            operace = 1;
-            conn.Open();
-            int id = hledaniid();
-            sql =$"";
+            using (var dialog = new Form2())
+            {
+                dialog.ShowDialog();
+                int priorita = dialog.priority;
+                DateTime datum = dialog.datum;
+                TimeSpan doba = dialog.doba;
+                bool upozorneni = dialog.upozorneni;
+                string udalost = dialog.udalost;
+                operace = 1;
+                conn.Open();
+                int id = hledaniid();
+                sql = $"";
 
-            cmd = new SQLiteCommand(sql, conn);
-            cmd.ExecuteNonQuery();
-            sql = "SELECT * FROM udalosti ORDER BY id";
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn);
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            dataGridView1.DataSource = dt;
-            conn.Close();
+                cmd = new SQLiteCommand(sql, conn);
+                cmd.ExecuteNonQuery();
+                sql = "SELECT * FROM udalosti ORDER BY id";
+                SQLiteDataAdapter adapter = new SQLiteDataAdapter(sql, conn);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                dataGridView1.DataSource = dt;
+                conn.Close();
+            }
         }
         private void btn_Upravit_Click(object sender, EventArgs e)
         {
@@ -170,18 +183,6 @@ namespace Diar
         {
             Application.DoEvents();
             kontrola();
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if(comboBox1.SelectedIndex == 0)
-            {
-                upozorneni = false;
-            }
-            else if(comboBox1.SelectedIndex == 1)
-            {
-                upozorneni=true;
-            }
         }
     }
 }
